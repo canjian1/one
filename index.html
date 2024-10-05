@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+ <head> 
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> 
+  <title>残剑</title> 
+  <link rel="icon" href="https://file.bi8bo.icu/img/f40a8e4035d75a5aa3d70.png"> 
+  <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css"> 
+  <meta name="description" content="No running."> 
+  <meta name="keywords" content="运动, 步数, 修改, 健康, 运动步数, WeChat, steps, modification, health, steps"> 
+  <meta name="author" content="ymyuuu"> 
+  <meta name="robots" content="index, follow"> 
+  <meta name="googlebot" content="index, follow"> 
+  <meta property="og:title" content="残剑"> 
+  <meta property="og:description" content="No running."> 
+  <meta property="og:image" content="https://file.bi8bo.icu/img/f40a8e4035d75a5aa3d70.png"> 
+  <meta property="og:type" content="website"> 
+  <meta property="og:locale" content="zh_CN"> 
+  <meta name="format-detection" content="telephone=no"> 
+  <script src="https://cdn.jsdelivr.net/gh/ymyuuu/config/js/layui-dark.js"></script> 
+  <style>
+  			.form-container {
+  				padding: 20px;
+  				margin-top: 30px;
+  			}
+
+  			input[type=number]::-webkit-inner-spin-button,
+  			input[type=number]::-webkit-outer-spin-button {
+  				-webkit-appearance: none;
+  				margin: 0;
+  			}
+
+  			input[type=number] {
+  				-moz-appearance: textfield;
+  			}
+  		</style> 
+ </head> 
+ <body> 
+  <div class="layui-container"> 
+   <div class="layui-row"> 
+    <div class="layui-col-md-offset2 layui-col-md8"> 
+     <fieldset class="layui-elem-field form-container"> 
+      <legend>残剑</legend>
+      <form class="layui-form" id="step-form" action="submit.php" method="post" target="hidden_iframe" onsubmit="if(check()){ showLoading(); } else { return false; }">
+       <div class="layui-form-item"> 
+        <div class="layui-input-wrap"> 
+         <div class="layui-input-prefix"> 
+          <i class="layui-icon layui-icon-username"></i> 
+         </div> 
+         <input type="text" id="account" name="account" required lay-verify="required|account" placeholder="账号" lay-reqtext="请填写账号" autocomplete="off" class="layui-input">
+        </div> 
+       </div> 
+       <div class="layui-form-item"> 
+        <div class="layui-input-wrap"> 
+         <div class="layui-input-prefix"> 
+          <i class="layui-icon layui-icon-password"></i> 
+         </div> 
+         <input type="password" id="password" name="password" required lay-verify="required" placeholder="密码" lay-reqtext="请填写密码" autocomplete="off" class="layui-input" lay-affix="eye">
+        </div> 
+       </div> 
+       <div class="layui-form-item"> 
+        <div class="layui-input-wrap"> 
+         <div class="layui-input-prefix"> 
+          <i class="layui-icon layui-icon-dialogue"></i> 
+         </div> 
+         <input type="number" id="steps" name="steps" required lay-verify="required|number" placeholder="期望值" lay-reqtext="请填写期望值" autocomplete="off" class="layui-input" onwheel="return false;">
+        </div> 
+       </div> 
+       
+       <div class="layui-form-item"> 
+        <div class="layui-input-item" style="text-align: center;"> 
+         <button class="layui-btn" type="submit" lay-submit lay-filter="formDemo">提交</button>
+        </div> 
+       </div> 
+      </form> 
+     </fieldset> 
+    </div> 
+   </div> 
+  </div> 
+  <footer style="text-align: center; font-size: 14px; ">
+    © 2023-2024 
+   <span style="font-weight: bold;">残雪</span>
+  </footer> 
+  <script src="https://www.layuicdn.com/layui/layui.js"></script>
+  <script>
+   function showLoading() {
+    document.getElementById("loading").style.display = "block";
+   }
+
+   function hideLoading() {
+    document.getElementById("loading").style.display = "none";
+   }
+
+   function check() {
+    let account = document.getElementsByName('account')[0].value.trim();
+    let password = document.getElementsByName('password')[0].value.trim();
+    let steps = document.getElementsByName('steps')[0].value.trim();
+
+    let accountReg = /^[\w@\.]{5,255}$/;
+    if (!accountReg.test(account)){
+     alert('zepp life账号填写不符合要求');
+     return false;
+    }
+
+    let pwReg = /^.{8,}$/; // 修正密码正则表达式，至少8位
+    if (!pwReg.test(password)){
+     alert('密码不能低于8位');
+     return false;
+    }
+
+    let stepsReg = /^(?:[1-9]\d{0,4}|98800)$/; // 修正步数正则表达式，1-98800
+    if (steps.length > 0) {
+     if (!stepsReg.test(steps)){
+      alert('步数不能低于1且不得超过98800！');
+      return false;
+     }
+    }
+
+    return true;
+   }
+  </script>
+  <div id="loading">正在提交，请稍等片刻...</div>
+<iframe name="hidden_iframe" style="display:none;" onload="hideLoading();"></iframe>
+ </body>
+</html>
